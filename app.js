@@ -1,7 +1,7 @@
 
 
 
-const flexSwitchCheckPC=document.querySelector("#flexSwitchCheckPC")
+const flexSwitchCheckPC = document.querySelector("#flexSwitchCheckPC")
 const divGamebox = document.querySelector("#gameboxx");
 const winModal = (document.getElementById('winModal'));
 
@@ -28,27 +28,52 @@ let maxC;
 eventListener();
 
 function eventListener() {
-    document.addEventListener("click", deneme)
+    document.addEventListener("click", changeBoxColor)
     document.addEventListener("click", startGame)
     document.addEventListener("click", changeStatus)
     winModal.addEventListener('hidden.bs.modal', gameReset)
 }
-function deneme(e){
-    console.log(e.target.id==="flexSwitchCheckPC")
-    console.log()
+function changeBoxColor(e) {
+    if (e.target.id === "flexSwitchCheckPC") {
+        try {
+            const colDiv = document.querySelectorAll(".gamebox");
+            let pc=flexSwitchCheckPC.checked;
+            if(pc){
+                colDiv.forEach(item=>{
+                    item.style.backgroundColor = "red"
+                })
+            }
+            else{
+                colDiv.forEach(item=>{
+                    item.style.backgroundColor = "blue"
+                })
+            }
+            
+            
+        }
+        catch {
+
+        }
+
+
+
+
+
+    }
+
 }
-function gameReset(){
-    gameArray=[];
-    gameInArray=[];
+function gameReset() {
+    gameArray = [];
+    gameInArray = [];
     const colDiv = document.querySelectorAll(".gamebox");
 
 
     colDiv.forEach(item => {
         item.className = "col gamebox free"
-        item.innerHTML=""
+        item.innerHTML = ""
     })
-    gamer="X";
-    document.querySelector("#nextGamer").innerHTML=`Gamer: ${gamer}`
+    gamer = "X";
+    document.querySelector("#nextGamer").innerHTML = `Gamer: ${gamer}`
 
 }
 
@@ -85,10 +110,10 @@ function startGame(e) {
 
 
     }
-    else if (e.target.id === "btnPlay" ) {
+    else if (e.target.id === "btnPlay") {
 
         try {
-            
+
             winLenght = dropDownLenght.options[dropDownLenght.selectedIndex].text;
 
             loadBoxUI(col, row)
@@ -115,7 +140,7 @@ function changeStatus(e) {
         e.target.className = "col gamebox clicked";
         e.target.innerHTML = gamer;
         gamer == "X" ? gamer = "O" : gamer = "X"
-        document.querySelector("#nextGamer").innerHTML=`Gamer: ${gamer}`
+        document.querySelector("#nextGamer").innerHTML = `Gamer: ${gamer}`
 
         user = "P"
         checkGameStatus(col, row, winLenght);
@@ -150,7 +175,7 @@ function loadBoxUI(col, row) {
 
     }
 
-    document.querySelector("#nextGamer").innerHTML=`Gamer: ${gamer}`
+    document.querySelector("#nextGamer").innerHTML = `Gamer: ${gamer}`
 
 
 
@@ -241,14 +266,14 @@ function checkGameStatus(col, row, winLenght) {
     }
 
     //çapraz kontrol
-    
+
     let cc = 0
     for (i = 0; i <= maxC - winLenght; i++) {
         let items = [];
 
         for (j = 0; j < row; j++) {
 
-            
+
             if (gameArray[j][cc + j] != null) {
                 items.push(gameArray[j][cc + j])
             }
@@ -349,8 +374,8 @@ function checkGameStatus(col, row, winLenght) {
         }
 
     }
-    let pc=flexSwitchCheckPC.checked;
-    if(pc && user==="P"){
+    let pc = flexSwitchCheckPC.checked;
+    if (pc && user === "P") {
         gamePc();
     }
 
@@ -360,12 +385,12 @@ function checkGameStatus(col, row, winLenght) {
 
 
 function gameOver() {
-    
-    document.querySelector("#nextGamer").innerHTML=""
+
+    document.querySelector("#nextGamer").innerHTML = ""
     $('#winModal').modal('show');
-    
+
 }
-    
+
 
 function gamePc() {
 
@@ -375,11 +400,11 @@ function gamePc() {
 
     // get random item
     const item = colDiv[randomIndex];
-    
+
     item.className = "col gamebox clicked";
     item.innerHTML = gamer
     gamer == "X" ? gamer = "O" : gamer = "X"
-    document.querySelector("#nextGamer").innerHTML=`Gamer: ${gamer}`
+    document.querySelector("#nextGamer").innerHTML = `Gamer: ${gamer}`
     user = "PC"
     checkGameStatus(col, row, winLenght)
 

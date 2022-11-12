@@ -1,9 +1,11 @@
 
 
 
-
+const flexSwitchCheckPC=document.querySelector("#flexSwitchCheckPC")
 const divGamebox = document.querySelector("#gameboxx");
 const winModal = (document.getElementById('winModal'));
+
+
 
 
 
@@ -26,9 +28,14 @@ let maxC;
 eventListener();
 
 function eventListener() {
+    document.addEventListener("click", deneme)
     document.addEventListener("click", startGame)
     document.addEventListener("click", changeStatus)
     winModal.addEventListener('hidden.bs.modal', gameReset)
+}
+function deneme(e){
+    console.log(e.target.id==="flexSwitchCheckPC")
+    console.log()
 }
 function gameReset(){
     gameArray=[];
@@ -78,9 +85,10 @@ function startGame(e) {
 
 
     }
-    else if (e.target.id === "btnPlay") {
+    else if (e.target.id === "btnPlay" ) {
 
         try {
+            
             winLenght = dropDownLenght.options[dropDownLenght.selectedIndex].text;
 
             loadBoxUI(col, row)
@@ -127,7 +135,7 @@ function loadBoxUI(col, row) {
     for (let i = 1; i <= col * row; i++) {
         if (i % col === 1) {
             rowDiv = document.createElement("div");
-            rowDiv.className = "row row-cols-auto"
+            rowDiv.className = "row "
 
 
         }
@@ -341,6 +349,10 @@ function checkGameStatus(col, row, winLenght) {
         }
 
     }
+    let pc=flexSwitchCheckPC.checked;
+    if(pc && user==="P"){
+        gamePc();
+    }
 
 }
 
@@ -363,9 +375,11 @@ function gamePc() {
 
     // get random item
     const item = colDiv[randomIndex];
+    
     item.className = "col gamebox clicked";
-    item.innerHTML = "O"
-    gamer = "X"
+    item.innerHTML = gamer
+    gamer == "X" ? gamer = "O" : gamer = "X"
+    document.querySelector("#nextGamer").innerHTML=`Gamer: ${gamer}`
     user = "PC"
     checkGameStatus(col, row, winLenght)
 

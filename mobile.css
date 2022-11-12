@@ -1,5 +1,10 @@
 .gamebox {
     
-    width: 2rem !important;
-    height: 2rem;
+    max-width: 20vh !important;
+    aspect-ratio: 1 / 1;
+    font-size: 8vh;
+    padding-left: 0.1rem !important;
+    padding-right: 0.1rem !important;
+    padding-top: 0.1rem
+    
 }  

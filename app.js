@@ -4,6 +4,9 @@
 const flexSwitchCheckPC = document.querySelector("#flexSwitchCheckPC")
 const divGamebox = document.querySelector("#gameboxx");
 const winModal = (document.getElementById('winModal'));
+const dropDownRow = document.getElementById("dropDownRow")
+const dropDownCol = document.getElementById("dropDownColums")
+const dropDownLenght = document.querySelector("#dropDownLenght");
 
 
 
@@ -19,47 +22,52 @@ const winModal = (document.getElementById('winModal'));
 let gamer = "X"
 let user;
 
-let col;
-let row;
-let winLenght;
+let col; let dcol;
+let row; let drow;
+let winLenght; let dwinLenght;
 let maxC;
 
 
 eventListener();
 
 function eventListener() {
-    document.addEventListener("click", changeBoxColor)
+
     document.addEventListener("click", startGame)
     document.addEventListener("click", changeStatus)
     winModal.addEventListener('hidden.bs.modal', gameReset)
+    dropDownCol.addEventListener("change", dropDownIndex)
+    dropDownRow.addEventListener("change", dropDownIndex)
+    flexSwitchCheckPC.addEventListener("change", changeBoxColor)
+
 }
+
 function changeBoxColor(e) {
-    if (e.target.id === "flexSwitchCheckPC") {
-        try {
-            const colDiv = document.querySelectorAll(".gamebox");
-            let pc=flexSwitchCheckPC.checked;
-            if(pc){
-                colDiv.forEach(item=>{
-                    item.style.backgroundColor = "red"
-                })
-            }
-            else{
-                colDiv.forEach(item=>{
-                    item.style.backgroundColor = "blue"
-                })
-            }
-            
-            
+
+    try {
+        const colDiv = document.querySelectorAll(".gamebox");
+        let pc = flexSwitchCheckPC.checked;
+        if (pc) {
+            colDiv.forEach(item => {
+                item.style.backgroundColor = "red"
+            })
         }
-        catch {
-
+        else {
+            colDiv.forEach(item => {
+                item.style.backgroundColor = "blue"
+            })
         }
-
-
-
 
 
     }
+    catch {
+
+    }
+
+
+
+
+
+
 
 }
 function gameReset() {
@@ -76,42 +84,40 @@ function gameReset() {
     document.querySelector("#nextGamer").innerHTML = `Gamer: ${gamer}`
 
 }
-
-function startGame(e) {
-
+function dropDownIndex(e) {
 
 
+    if (e.target.id === "dropDownColums") {
+        dcol = e.target.value
+    }
+    else if (e.target.id === "dropDownRow") {
+        drow = e.target.value
+    }
 
-
-    if (e.target.className.includes("rowcol")) {
-        const dropDownColums = document.querySelector("#dropDownColums");
-
-        col = dropDownColums.options[dropDownColums.selectedIndex].text;
-
-        const dropDownRow = document.querySelector("#dropDownRow");
-        row = dropDownRow.options[dropDownRow.selectedIndex].text;
-
-        minC = Math.min(col, row)
-
-
-        const dropDownLenght = document.querySelector("#dropDownLenght");
-        dropDownLenght.innerHTML = ""
-        for (let i = 2; i <= minC; i++) {
-            const option = document.createElement("option");
-            option.innerText = i;
-
-            dropDownLenght.appendChild(option)
-
-
-        }
+    let minC = Math.min(dcol, drow);
 
 
 
+    dropDownLenght.innerHTML = ""
+    for (let i = 2; i <= minC; i++) {
+
+        const option = document.createElement("option");
+        option.innerText = i;
+
+        dropDownLenght.appendChild(option)
 
 
     }
-    else if (e.target.id === "btnPlay") {
 
+
+
+}
+
+function startGame(e) {
+
+    if (e.target.id === "btnPlay") {
+        col = dcol;
+        row = drow;
         try {
 
             winLenght = dropDownLenght.options[dropDownLenght.selectedIndex].text;
@@ -165,16 +171,16 @@ function loadBoxUI(col, row) {
 
         }
 
-        
+
         const colDiv = document.createElement("div");
         colDiv.className = "col gamebox free";
 
-        let pc=flexSwitchCheckPC.checked;
-        if(pc){
-            colDiv.style.backgroundColor="red"
+        let pc = flexSwitchCheckPC.checked;
+        if (pc) {
+            colDiv.style.backgroundColor = "red"
         }
-        else{
-            colDiv.style.backgroundColor="blue"
+        else {
+            colDiv.style.backgroundColor = "blue"
         }
 
 

@@ -165,8 +165,18 @@ function loadBoxUI(col, row) {
 
         }
 
+        
         const colDiv = document.createElement("div");
         colDiv.className = "col gamebox free";
+
+        let pc=flexSwitchCheckPC.checked;
+        if(pc){
+            colDiv.style.backgroundColor="red"
+        }
+        else{
+            colDiv.style.backgroundColor="blue"
+        }
+
 
         rowDiv.appendChild(colDiv);
         divGamebox.appendChild(rowDiv);

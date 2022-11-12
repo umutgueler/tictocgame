@@ -6,7 +6,6 @@
     margin: 2rem;
 }
 .gamebox {
-    background-color: rgb(30, 30, 216);
     width: 5rem !important;
     aspect-ratio: 1 / 1;
     border: 1px solid white;
